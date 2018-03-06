@@ -17,11 +17,16 @@ class TestAdapter
 }
 class Tester
 {
-    public function __construct(TestAdapter $adapter)
+    public function __construct(TestAdapter $adapter, String $message)
     {
-        $adapter->runTest('rodou um teste');
+        $adapter->runTest($message);
     }
 }
-$tester = ( new Resolver )->resolveClass('Tester');
+// $tester = ( new Resolver )
+//             ->resolveClass('Tester',['message' => 'rodou um teste']);
 // $testAdapter = ( new Resolver )->resolveClass('TestAdapter');
 // $testAdapter->runTest('oi bb');
+$func = function(Tester $tester, TestAdapter $test_adapter, $message = 'Teste de closure') {
+    var_dump($test_adapter->runTest($message));
+};
+$tester2 = ( new Resolver )->resolveFunction($func, ['message'=>'Teste de closure com injeção externa']);
